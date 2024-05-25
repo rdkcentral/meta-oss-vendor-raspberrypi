@@ -1,7 +1,13 @@
-OMWAPPI-1187 Parse senc box if it's direct descendant of traf box
+Date: Jun 15, 2023 16:04:52
+From: 332ebfd5d3090a6c89110b976a5dcf34ebb9876f Jun 15, 2023 16:04:52
+Subject: [PATCH] OMWAPPI-1187 Parse senc box if it's direct descendant of traf box
 
 When senc parser was first introduced, it only parsed senc box if it's
 under saiz box. There are contents that have it directly in traf box.
+
+Source: LGI
+Upstream-Status: Pending
+Signed-off-by: Peter Trekels <peter.trekels@androme.com>
 
 diff --git a/gst/isomp4/qtdemux.c b/gst/isomp4/qtdemux.c
 index 87cc3a7..23a63c9 100644
