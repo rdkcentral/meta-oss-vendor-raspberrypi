@@ -1,0 +1,39 @@
+Date: Jun 15, 2023 16:04:52
+From: 332ebfd5d3090a6c89110b976a5dcf34ebb9876f Jun 15, 2023 16:04:52
+Subject: [PATCH] OMWAPPI-1187 Parse senc box if it's direct descendant of traf box
+
+When senc parser was first introduced, it only parsed senc box if it's
+under saiz box. There are contents that have it directly in traf box.
+
+Source: LGI
+Upstream-Status: Pending
+Signed-off-by: Peter Trekels <peter.trekels@androme.com>
+
+diff --git a/gst/isomp4/qtdemux.c b/gst/isomp4/qtdemux.c
+index 87cc3a7..23a63c9 100644
+--- a/gst/isomp4/qtdemux.c
++++ b/gst/isomp4/qtdemux.c
+@@ -4438,6 +4438,21 @@ qtdemux_parse_moof (GstQTDemux * qtdemux, const guint8 * buffer, guint length,
+       }
+     }
+
++    senc_node =
++        qtdemux_tree_get_child_by_type_full (traf_node, FOURCC_senc,
++        &senc_data);
++    if (senc_node) {
++      GST_DEBUG_OBJECT (qtdemux, "parsing senc box");
++
++      if (G_UNLIKELY (!qtdemux_parse_senc (qtdemux, stream, &senc_data))) {
++        GST_ERROR_OBJECT (qtdemux, "failed to parse senc box");
++        g_free (qtdemux->cenc_aux_info_sizes);
++        qtdemux->cenc_aux_info_sizes = NULL;
++        goto fail;
++      }
++
++    }
++
+     tfdt_node =
+         qtdemux_tree_get_child_by_type_full (traf_node, FOURCC_tfdt,
+         &tfdt_data);
+
+
