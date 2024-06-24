@@ -1,4 +1,4 @@
-RDEPENDS_${PN}-dev = " \
+RDEPENDS_${PN}-dev += " \
     libegl-mesa-dev \
     libgl-mesa-dev \
     libglapi-dev \
