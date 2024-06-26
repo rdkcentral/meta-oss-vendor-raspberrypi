@@ -1,0 +1,1 @@
+RDEPENDS += "wayland-default-egl"
