@@ -21,6 +21,9 @@ UPSTREAM_CHECK_URI = "https://wayland.freedesktop.org/releases.html"
 
 S = "${WORKDIR}/wayland-${PV}"
 
+PV ?= "1.18.0"
+PR ?= "r0"
+
 inherit meson pkgconfig
 
 EXTRA_OEMESON = "-Ddocumentation=false -Ddtd_validation=false"
