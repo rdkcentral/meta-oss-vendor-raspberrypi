@@ -15,7 +15,7 @@ inherit systemd update-rc.d
 CXXFLAGS:append = "${@bb.utils.contains('DISTRO_FEATURES', 'enable_ermgr', ' -DUSE_ESSRMGR_UDS_IMPL', '', d)}"
 
 do_configure:prepend () {
-    sed -i -e 's/-lwesteros_simplebuffer:client/-lwesteros_compositor -lwesteros_simplebuffer:client/g' ${S}/rpi/westeros-sink/Makefile.am
+    sed -i -e 's/-lwesteros_simplebuffer_client/-lwesteros_compositor -lwesteros_simplebuffer_client/g' ${S}/rpi/westeros-sink/Makefile.am
 }
 
 do_compile:prepend () {
