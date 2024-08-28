@@ -1,1 +1,1 @@
-RDEPENDS_${PN} += "wayland-default-egl"
+RDEPENDS:${PN} += "wayland-default-egl"
