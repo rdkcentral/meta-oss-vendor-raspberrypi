@@ -48,6 +48,8 @@ do_install:append () {
     if [ "${@bb.utils.contains('DISTRO_FEATURES', 'rdkshell', 'yes', 'no', d)}" = "yes" ]; then
         rm -rf ${D}${systemd_unitdir}
     fi
+    # RDKVREFPLT-3128: fix do_package_qa error
+    rm -rf ${D}${base_libdir}
 }
 
 do_install:append_rasberrypi4 () {
