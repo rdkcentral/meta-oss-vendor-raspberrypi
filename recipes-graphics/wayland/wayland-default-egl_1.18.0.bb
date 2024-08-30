@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://../COPYING;md5=b31d8f53b6aaf2b4985d7dd7810a70d1 \
                     file://../src/wayland-server.c;endline=24;md5=b8e046164a766bb1ede8ba38e9dcd7ce"
 
 DEPENDS = "wayland"
-RDEPENDS_${PN} = "wayland"
+RDEPENDS:${PN} = "wayland"
 
 SRC_URI = "https://wayland.freedesktop.org/releases/wayland-${PV}.tar.xz \
     file://CMakeLists.txt \
@@ -26,7 +26,7 @@ PR ?= "r0"
 
 inherit cmake pkgconfig
 
-do_configure_prepend() {
+do_configure:prepend() {
     cp ${WORKDIR}/CMakeLists.txt ${S}
 }
 
