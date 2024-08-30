@@ -4,8 +4,8 @@
 
 HOMEPAGE = "http://wayland.freedesktop.org"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://COPYING;md5=b31d8f53b6aaf2b4985d7dd7810a70d1 \
-                    file://src/wayland-server.c;endline=24;md5=b8e046164a766bb1ede8ba38e9dcd7ce"
+LIC_FILES_CHKSUM = "file://../COPYING;md5=b31d8f53b6aaf2b4985d7dd7810a70d1 \
+                    file://../src/wayland-server.c;endline=24;md5=b8e046164a766bb1ede8ba38e9dcd7ce"
 
 DEPENDS = "wayland"
 RDEPENDS_${PN} = "wayland"
