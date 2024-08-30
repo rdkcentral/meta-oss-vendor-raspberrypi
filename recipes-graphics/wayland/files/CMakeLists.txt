@@ -12,6 +12,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 install(TARGETS ${PROJECT_NAME} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 set(prefix "/usr")
+set(exec_prefix "\${prefix}")
+set(libdir "\${exec_prefix}/lib")
+set(includedir "\${prefix}/include")
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/wayland-egl.pc.in
