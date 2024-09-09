@@ -5,7 +5,7 @@ PACKAGECONFIG = "incapp inctest increndergl incsbprotocol xdgv4"
 PACKAGECONFIG:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', 'modules', '', d)}"
 
 # enable Linux DMA buffer for RPi4
-PACKAGECONFIG:append_raspberrypi4 = " incldbprotocol"
+PACKAGECONFIG:append:raspberrypi4 = " incldbprotocol"
 
 CXXFLAGS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '-DWESTEROS_PLATFORM_DRM', '-DWESTEROS_PLATFORM_RPI -DWESTEROS_INVERTED_Y -DBUILD_WAYLAND -I${STAGING_INCDIR}/interface/vmcs_host/linux', d)} "
 CXXFLAGS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '-DUSE_MESA', '', d)}"
@@ -52,7 +52,7 @@ do_install:append () {
     rm -rf ${D}${base_libdir}
 }
 
-do_install:append_rasberrypi4 () {
+do_install:append:raspberrypi4 () {
     sed -i '/exec/i export WESTEROS_DRM_CARD=/dev/dri/card1' ${D}${bindir}/westeros-init
 }
 
