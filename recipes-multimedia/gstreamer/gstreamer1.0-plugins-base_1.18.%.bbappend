@@ -1,1 +1,1 @@
-PACKAGECONFIG_append = " ${@bb.utils.filter('DISTRO_FEATURES', 'alsa x11', d)}"
+PACKAGECONFIG:append = " ${@bb.utils.filter('DISTRO_FEATURES', 'alsa x11', d)}"

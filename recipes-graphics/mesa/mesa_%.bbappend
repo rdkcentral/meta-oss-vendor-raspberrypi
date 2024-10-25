@@ -5,7 +5,7 @@
 # PREFERRED_PROVIDER_virtual/libgbm
 # Ref: https://github.com/rdkcentral/meta-product-raspberrypi/pull/21
 
-RDEPENDS_${PN}-dev += " \
+RDEPENDS:${PN}-dev += " \
     libegl-mesa-dev \
     libgl-mesa-dev \
     libglapi-dev \
