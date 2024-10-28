@@ -10,4 +10,4 @@ TARGET_CFLAGS += '\
     -DGLES2_LIB_NAME=${GLES2_LIB_NAME} \
 '
 #Adding this as this got removed from OSS layer libepoxy bbappend
-DISTRO_FEATURES_append = " opengl"
+DISTRO_FEATURES:append = " opengl"
