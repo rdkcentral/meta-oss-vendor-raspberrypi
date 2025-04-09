@@ -2,6 +2,7 @@ From 584f6f4696b93d5184e40c9c57cac7aa081fdf9c Mon Sep 17 00:00:00 2001
 From: xueling Li <xueling.li@amlogic.com>
 Date: Thu, 19 Oct 2023 15:32:37 +0800
 Subject: [PATCH] yocto: drop raw audio data according to clip meta data [1/1]
+LICENSE: Inherited
 
 PD#SWPL-132808
 
