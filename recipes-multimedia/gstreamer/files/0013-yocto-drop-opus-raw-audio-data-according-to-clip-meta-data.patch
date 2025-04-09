@@ -1,3 +1,10 @@
+From 584f6f4696b93d5184e40c9c57cac7aa081fdf9c Mon Sep 17 00:00:00 2001
+From: xueling Li <xueling.li@amlogic.com>
+Date: Thu, 19 Oct 2023 15:32:37 +0800
+Subject: [PATCH] yocto: drop raw audio data according to clip meta data [1/1]
+
+PD#SWPL-132808
+
 Problem:
 youtube certification require this feature, audio clip happened
 when insert AD video without recreate new starboard player and
@@ -6,6 +13,11 @@ keep AVsync not broken
 Solution:
 audio decoder drop raw audio data according to clip meta data
 
+Verify:
+yts test xx "MSE Conformance Tests MSE Core AVSync.AAC" --year=2024
+yts test xx "MSE Conformance Tests MSE Core AVSync.Opus" --year=2024
+
+Signed-off-by: xueling Li <xueling.li@amlogic.com>
 ---
  ext/opus/gstopusdec.c | 5 +++++
  1 file changed, 5 insertions(+)
@@ -28,3 +40,4 @@ index 7ff9bee..9f4a198 100644
    /* Skip any samples that need skipping */
 -- 
 2.25.1
+
