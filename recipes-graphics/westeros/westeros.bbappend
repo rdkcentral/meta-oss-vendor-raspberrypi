@@ -36,7 +36,7 @@ do_install:append () {
     install -D -m 0644 ${S}/systemd/westeros-env ${D}${sysconfdir}/default/westeros-env
 
     # defining environment variable for westeros
-    echo "XDG_RUNTIME_DIR=/run" >> ${D}${sysconfdir}/default/westeros-env
+    echo "XDG_RUNTIME_DIR=/tmp" >> ${D}${sysconfdir}/default/westeros-env
     echo "WAYLAND_DISPLAY=wayland-0" >> ${D}${sysconfdir}/default/westeros-env
 
     if [ "${@bb.utils.contains("DISTRO_FEATURES", "systemd", "yes", "no", d)}" = "yes" ]; then
