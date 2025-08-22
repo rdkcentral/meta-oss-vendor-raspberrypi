@@ -1,0 +1,68 @@
+Index: git/cube/cube.c
+===================================================================
+--- git.orig/cube/cube.c	2022-02-09 21:20:13.000000000 +0000
++++ git/cube/cube.c	2025-03-28 13:48:01.180075228 +0000
+@@ -2812,11 +2812,13 @@
+ static const struct xdg_toplevel_listener xdg_toplevel_listener = {handle_toplevel_configure, handle_toplevel_close};
+
+ static void demo_create_window(struct demo *demo) {
++#if defined(XDG_WM_BASE_PROTO)
+     if (!demo->xdg_wm_base) {
+         printf("Compositor did not provide the standard protocol xdg-wm-base\n");
+         fflush(stdout);
+         exit(1);
+     }
++#endif
+
+     demo->window = wl_compositor_create_surface(demo->compositor);
+     if (!demo->window) {
+@@ -2825,6 +2827,7 @@
+         exit(1);
+     }
+
++#if defined(XDG_WM_BASE_PROTO)
+     demo->xdg_surface = xdg_wm_base_get_xdg_surface(demo->xdg_wm_base, demo->window);
+     if (!demo->xdg_surface) {
+         printf("Can not get xdg_surface from wayland_surface!\n");
+@@ -2846,6 +2849,7 @@
+             zxdg_decoration_manager_v1_get_toplevel_decoration(demo->xdg_decoration_mgr, demo->xdg_toplevel);
+         zxdg_toplevel_decoration_v1_set_mode(demo->toplevel_decoration, ZXDG_TOPLEVEL_DECORATION_V1_MODE_SERVER_SIDE);
+     }
++#endif
+
+     wl_surface_commit(demo->window);
+ }
+Index: git/cube/cube.cpp
+===================================================================
+--- git.orig/cube/cube.cpp	2025-03-28 13:46:05.731466292 +0000
++++ git/cube/cube.cpp	2025-03-28 13:47:13.557474044 +0000
+@@ -2867,11 +2867,13 @@
+ static const xdg_toplevel_listener toplevel_listener = {handle_toplevel_configure, handle_toplevel_close};
+
+ void Demo::create_window() {
++#if defined(XDG_WM_BASE_PROTO)
+     if (!wm_base) {
+         printf("Compositor did not provide the standard protocol xdg-wm-base\n");
+         fflush(stdout);
+         exit(1);
+     }
++#endif
+
+     window = wl_compositor_create_surface(compositor);
+     if (!window) {
+@@ -2880,6 +2882,7 @@
+         exit(1);
+     }
+
++#if defined(XDG_WM_BASE_PROTO)
+     window_surface = xdg_wm_base_get_xdg_surface(wm_base, window);
+     if (!window_surface) {
+         printf("Can not get xdg_surface from wayland_surface!\n");
+@@ -2900,6 +2903,7 @@
+         toplevel_decoration = zxdg_decoration_manager_v1_get_toplevel_decoration(xdg_decoration_mgr, window_toplevel);
+         zxdg_toplevel_decoration_v1_set_mode(toplevel_decoration, ZXDG_TOPLEVEL_DECORATION_V1_MODE_SERVER_SIDE);
+     }
++#endif
+
+     wl_surface_commit(window);
+ }

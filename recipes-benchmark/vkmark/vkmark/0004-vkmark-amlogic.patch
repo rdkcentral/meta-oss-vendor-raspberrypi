@@ -1,0 +1,13 @@
+Index: git/src/ws/swapchain_window_system.cpp
+===================================================================
+--- git.orig/src/ws/swapchain_window_system.cpp 2025-04-15 12:47:13.344882311 +0000
++++ git/src/ws/swapchain_window_system.cpp      2025-03-17 09:02:56.000000000 +0000
+@@ -209,7 +209,7 @@
+     if (!(surface_caps.supportedCompositeAlpha &
+           vk::CompositeAlphaFlagBitsKHR::eOpaque))
+     {
+-        throw std::runtime_error("Opaque not supported");
++        Log::info("vk::CompositeAlphaFlagBitsKHR::eOpaque not supported\n");
+     }
+
+     if (!vulkan->physical_device().getSurfaceSupportKHR(
