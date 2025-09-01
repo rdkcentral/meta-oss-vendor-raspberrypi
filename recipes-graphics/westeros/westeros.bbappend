@@ -6,6 +6,8 @@ PACKAGECONFIG:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics',
 
 # enable Linux DMA buffer for RPi4
 PACKAGECONFIG:append:raspberrypi4 = " incldbprotocol"
+PACKAGECONFIG:append:raspberrypi4 = " inclexpsyncprotocol"
+PACKAGECONFIG[inclexpsyncprotocol] = "--enable-lexpsyncprotocol=yes"
 
 CXXFLAGS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '-DWESTEROS_PLATFORM_DRM', '-DWESTEROS_PLATFORM_RPI -DWESTEROS_INVERTED_Y -DBUILD_WAYLAND -I${STAGING_INCDIR}/interface/vmcs_host/linux', d)} "
 CXXFLAGS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '-DUSE_MESA', '', d)}"
