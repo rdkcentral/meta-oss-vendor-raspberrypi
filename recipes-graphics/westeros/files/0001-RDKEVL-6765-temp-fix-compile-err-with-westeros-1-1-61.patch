@@ -1,0 +1,31 @@
+From 3372158001efd4a6e01d1125f3abb57cfb417198 Mon Sep 17 00:00:00 2001
+From: tkathi259 <thenmozhi_kathiravan@comcast.com>
+Date: Tue, 28 Oct 2025 16:38:33 +0000
+Subject: [PATCH] 
+ RDKEVL-6765-temp-fix-compile-err-with-westeros-1-1-61-version
+
+---
+ westeros-sink/v4l2/westeros-sink-soc.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/westeros-sink/v4l2/westeros-sink-soc.c b/westeros-sink/v4l2/westeros-sink-soc.c
+index 1d3d686c..7cd9b04f 100644
+--- a/westeros-sink/v4l2/westeros-sink-soc.c
++++ b/westeros-sink/v4l2/westeros-sink-soc.c
+@@ -6783,11 +6783,13 @@ static bool wstLowLatencyModeInit(GstWesterosSink *sink)
+ 	int inputFormat = sink->soc.inputFormat;
+ 	switch (inputFormat)
+ 	{
++		#ifdef V4L2_PIX_FMT_AV1
+ 		case V4L2_PIX_FMT_AV1:
+ 			GST_DEBUG("Initializing AV1 vcodec");
+ 			g_vcodec->ext_handle = g_vcodec->vcodec_ext_init_ll_av1();
+ 			ret = true;
+ 			break;
++		#endif
+ 		case V4L2_PIX_FMT_H264:
+ 		case V4L2_PIX_FMT_H264_NO_SC:
+ 		case V4L2_PIX_FMT_H264_MVC:
+-- 
+2.44.4
+
