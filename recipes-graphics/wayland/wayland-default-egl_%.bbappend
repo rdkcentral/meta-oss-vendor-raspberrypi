@@ -1,5 +1,5 @@
-PACKAGES += "wayland-default-egl-gpulayer"
-RDEPENDS:wayland-default-egl += "wayland-default-egl-gpulayer"
+PACKAGES += "${PN}-gpulayer"
+RDEPENDS:${PN} += "${PN}-gpulayer"
 
 do_install:append() {
     GPU_LAYER_LIBDIR="${D}/usr/share/gpu-layer/rootfs/usr/lib"
@@ -11,9 +11,6 @@ do_install:append() {
     done
 }
 
-FILES:wayland-default-egl-gpulayer += "/usr/share/gpu-layer/rootfs/usr/lib/*"
+FILES:${PN}-gpulayer += "/usr/share/gpu-layer/rootfs/usr/lib/*"
 
-PRIVATE_LIBS:wayland-default-egl-gpulayer = "\
-    libwayland-egl.so.1 \
-    libwayland-egl.so.1.0.0 \
-    "
+PRIVATE_LIBS:${PN} += "libwayland-egl.so.1"

@@ -19,8 +19,7 @@ PACKAGES += "${PN}-gpulayer"
 RDEPENDS:libegl-mesa += "${PN}-gpulayer"
 
 do_install:append() {
-    GPU_LAYER_LIBDIR="${D}/usr/share/gpu-layer/rootfs/usr/lib"
-    install -d ${GPU_LAYER_LIBDIR}
+    install -d ${D}${GPU_LAYER_LIBDIR}
 
     for so in \
         ${D}${libdir}/libEGL.so.* \
@@ -29,20 +28,16 @@ do_install:append() {
         ${D}${libdir}/libgbm.so.* \
         ${D}${libdir}/libvulkan_broadcom.so ; do
         [ -f "$so" ] || continue
-        ln -f "$so" "${GPU_LAYER_LIBDIR}/$(basename $so)"
+        ln -f "$so" "${D}${GPU_LAYER_LIBDIR}/$(basename $so)"
     done
 }
 
-FILES:${PN}-gpulayer += "/usr/share/gpu-layer/rootfs/usr/lib/*"
+FILES:${PN}-gpulayer += "${GPU_LAYER_LIBDIR}/*"
 
 PRIVATE_LIBS:${PN}-gpulayer = "\
     libgbm.so.1 \
-    libgbm.so.1.0.0 \
     libglapi.so.0 \
-    libglapi.so.0.0.0 \
     libEGL.so.1 \
-    libEGL.so.1.0.0 \
     libGLESv2.so.2 \
-    libGLESv2.so.2.0.0 \
     libvulkan_broadcom.so \
     "
