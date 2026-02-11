@@ -5,4 +5,4 @@ EXTRA_OECONF:append = " \
     --disable-decoder=h264 \
     "
 
-EXTRA_OECONF:remove = " --disable-everything"
+EXTRA_OECONF:remove = "--disable-everything"
