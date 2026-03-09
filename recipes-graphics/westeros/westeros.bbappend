@@ -62,5 +62,3 @@ LDFLAGS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '', '
 
 INITSCRIPT_NAME = "westeros"
 INITSCRIPT_PARAMS = "defaults"
-
-SYSTEMD_SERVICE:${PN} = "${@bb.utils.contains('DISTRO_FEATURES', 'rdkshell', '', 'westeros.service', d)}"
