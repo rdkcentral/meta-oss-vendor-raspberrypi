@@ -4,9 +4,15 @@ SUMMARY = "This receipe compiles the westeros compositor gstreamer sink element"
 
 LICENSE = "LGPLv2.1"
 
-S = "${WORKDIR}/git/westeros-sink"
+S = "${WORKDIR}/git"
 
-LICENSE_LOCATION = "${S}/../LICENSE"
+SRC_URI = "${WESTEROS_SINK_URI}"
+SRCREV_FORMAT = "westeros-sink"
+
+LICENSE_LOCATION = "${S}/LICENSE"
+LIC_FILES_CHKSUM = "file://${LICENSE_LOCATION};md5=8fb65319802b0c15fc9e0835350ffa02"
+
+PSEUDO_IGNORE_PATHS .= ",${WORKDIR}/git"
 
 inherit autotools pkgconfig
 
