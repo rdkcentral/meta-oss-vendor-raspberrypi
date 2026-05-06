@@ -9,10 +9,10 @@ Source: COMCAST
 Upstream-Status: Pending
 Signed-off-by: jwanna001 <jeff_wannamaker@cable.comcast.com>
 ---
-Index: git/westeros-sink.h
+Index: git/westeros-sink/westeros-sink.h
 ===================================================================
---- git.orig/westeros-sink.h
-+++ git/westeros-sink.h
+--- git.orig/westeros-sink/westeros-sink.h
++++ git/westeros-sink/westeros-sink.h
 @@ -28,8 +28,13 @@
 
  #define DEFAULT_WINDOW_X (0)
