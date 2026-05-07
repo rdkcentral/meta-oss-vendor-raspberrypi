@@ -1,6 +1,9 @@
 # bbappend for raspberryPi
 #
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+SRC_URI += "file://0001-REFPLTV-3098-App-slowness-issue-fix.patch"
+
 PACKAGECONFIG = "incapp inctest increndergl incsbprotocol xdgv4"
 PACKAGECONFIG:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', 'modules', '', d)}"
 
@@ -18,8 +21,7 @@ inherit systemd update-rc.d
 CXXFLAGS:append = "${@bb.utils.contains('DISTRO_FEATURES', 'enable_ermgr', ' -DUSE_ESSRMGR_UDS_IMPL', '', d)}"
 
 do_configure:prepend () {
-#    sed -i -e 's/-lwesteros_simplebuffer_client/-lwesteros_compositor -lwesteros_simplebuffer_client/g' ${S}/rpi/westeros-sink/Makefile.am
-    sed -i -e 's/-lwesteros_simplebuffer_client/-lwesteros_compositor -lwesteros_simplebuffer_client/g' ${S}/Makefile.am
+    sed -i -e 's/-lwesteros_simplebuffer_client/-lwesteros_compositor -lwesteros_simplebuffer_client/g' ${S}/rpi/westeros-sink/Makefile.am
 }
 
 do_compile:prepend () {

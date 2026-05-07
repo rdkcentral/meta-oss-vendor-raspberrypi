@@ -1,0 +1,42 @@
+From 2ffcf42fe4cb42924e14e5ed9e01e80ea12b0f49 Mon Sep 17 00:00:00 2001
+From: smuthu065 <SundaraMuneeswaran_Muthuraj@comcast.com>
+Date: Thu, 7 May 2026 08:53:14 +0000
+Subject: [PATCH] REFPLTV-3098: Observing visible slowness For Installed Apps
+ including YouTube issue fix
+
+---
+ westeros-render-embedded.cpp | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/westeros-render-embedded.cpp b/westeros-render-embedded.cpp
+index 61ca5118..2c9b9793 100644
+--- a/westeros-render-embedded.cpp
++++ b/westeros-render-embedded.cpp
+@@ -531,7 +531,23 @@ static WstRendererEMB* wstRendererEMBCreate( WstRenderer *renderer )
+          else
+          {
+             printf("wayland-egl support expected, and is advertised by eglQueryString(eglDisplay,EGL_EXTENSIONS): proceeding to use \n" );
+-         
++#ifdef WESTEROS_PLATFORM_EMBEDDED_RPI
++               printf("calling eglUnbindWaylandDisplayWL with eglDisplay %p and wayland display %p before bind\n", rendererEMB->eglDisplay, renderer->display );
++               EGLBoolean unbindRc= rendererEMB->eglUnbindWaylandDisplayWL( rendererEMB->eglDisplay, renderer->display );
++
++               if ( unbindRc ) {
++                  printf("pre-bind eglUnbindWaylandDisplayWL succeeded\n" );
++               }
++               else {
++                  EGLint unbindErr= eglGetError();
++
++                  if ( unbindErr == EGL_SUCCESS )
++                     printf("pre-bind eglUnbindWaylandDisplayWL returned false with EGL_SUCCESS (nothing to unbind)\n" );
++                  else
++                     printf("pre-bind eglUnbindWaylandDisplayWL failed: %x (continuing)\n", unbindErr );
++               }
++#endif /* WESTEROS_PLATFORM_EMBEDDED_RPI */
++
+             rendererEMB->eglBindWaylandDisplayWL= (PFNEGLBINDWAYLANDDISPLAYWL)eglGetProcAddress("eglBindWaylandDisplayWL");
+             printf( "eglBindWaylandDisplayWL %p\n", rendererEMB->eglBindWaylandDisplayWL );
+ 
+-- 
+2.44.4
+
