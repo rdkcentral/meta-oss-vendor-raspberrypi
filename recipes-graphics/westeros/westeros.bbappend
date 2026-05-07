@@ -1,6 +1,9 @@
 # bbappend for raspberryPi
 #
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+SRC_URI += "file://0001-REFPLTV-3098-App-slowness-issue-fix.patch"
+
 PACKAGECONFIG = "incapp inctest increndergl incsbprotocol xdgv4"
 PACKAGECONFIG:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', 'modules', '', d)}"
 
@@ -11,6 +14,7 @@ PACKAGECONFIG[inclexpsyncprotocol] = "--enable-lexpsyncprotocol=yes"
 
 CXXFLAGS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '-DWESTEROS_PLATFORM_DRM', '-DWESTEROS_PLATFORM_RPI -DWESTEROS_INVERTED_Y -DBUILD_WAYLAND -I${STAGING_INCDIR}/interface/vmcs_host/linux', d)} "
 CXXFLAGS:append = " ${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '-DUSE_MESA', '', d)}"
+CXXFLAGS:append = " -DWESTEROS_PLATFORM_EMBEDDED_RPI"
 
 inherit systemd update-rc.d
 
