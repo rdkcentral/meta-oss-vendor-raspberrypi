@@ -1,22 +1,20 @@
-From 2ffcf42fe4cb42924e14e5ed9e01e80ea12b0f49 Mon Sep 17 00:00:00 2001
+From 83b1576a54087c7cce59916ebc0e02abc8afac86 Mon Sep 17 00:00:00 2001
 From: smuthu065 <SundaraMuneeswaran_Muthuraj@comcast.com>
-Date: Thu, 7 May 2026 08:53:14 +0000
-Subject: [PATCH] REFPLTV-3098: Observing visible slowness For Installed Apps
- including YouTube issue fix
+Date: Fri, 8 May 2026 17:16:00 +0000
+Subject: [PATCH] REFPLTV-3098: Observing visible slowness For Installed Apps including YouTube issue fix.
 
 ---
- westeros-render-embedded.cpp | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ westeros-render-embedded.cpp | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/westeros-render-embedded.cpp b/westeros-render-embedded.cpp
-index 61ca5118..2c9b9793 100644
+index 61ca5118..a3efc878 100644
 --- a/westeros-render-embedded.cpp
 +++ b/westeros-render-embedded.cpp
-@@ -531,7 +531,23 @@ static WstRendererEMB* wstRendererEMBCreate( WstRenderer *renderer )
-          else
-          {
-             printf("wayland-egl support expected, and is advertised by eglQueryString(eglDisplay,EGL_EXTENSIONS): proceeding to use \n" );
--         
+@@ -545,6 +545,23 @@ static WstRendererEMB* wstRendererEMBCreate( WstRenderer *renderer )
+                  rendererEMB->eglUnbindWaylandDisplayWL &&
+                  rendererEMB->eglQueryWaylandBufferWL )
+             {               
 +#ifdef WESTEROS_PLATFORM_EMBEDDED_RPI
 +               printf("calling eglUnbindWaylandDisplayWL with eglDisplay %p and wayland display %p before bind\n", rendererEMB->eglDisplay, renderer->display );
 +               EGLBoolean unbindRc= rendererEMB->eglUnbindWaylandDisplayWL( rendererEMB->eglDisplay, renderer->display );
@@ -34,9 +32,9 @@ index 61ca5118..2c9b9793 100644
 +               }
 +#endif /* WESTEROS_PLATFORM_EMBEDDED_RPI */
 +
-             rendererEMB->eglBindWaylandDisplayWL= (PFNEGLBINDWAYLANDDISPLAYWL)eglGetProcAddress("eglBindWaylandDisplayWL");
-             printf( "eglBindWaylandDisplayWL %p\n", rendererEMB->eglBindWaylandDisplayWL );
- 
+                printf("calling eglBindWaylandDisplayWL with eglDisplay %p and wayland display %p\n", rendererEMB->eglDisplay, renderer->display );
+                EGLBoolean rc= rendererEMB->eglBindWaylandDisplayWL( rendererEMB->eglDisplay, renderer->display );
+                if ( rc )
 -- 
 2.44.4
 
