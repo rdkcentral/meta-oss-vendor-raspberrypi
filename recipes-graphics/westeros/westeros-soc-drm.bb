@@ -1,0 +1,44 @@
+include westeros.inc
+SUMMARY = "This receipe compiles the westeros gl component for drm supported platforms, currently the HiKey board"
+LICENSE_LOCATION = "${S}/LICENSE"
+LIC_FILES_CHKSUM = "file://${LICENSE_LOCATION};md5=8fb65319802b0c15fc9e0835350ffa02"
+SRC_URI = "${WESTEROS_SOC_URI}"
+
+
+S = "${WORKDIR}/git"
+
+
+COMPATIBLE_MACHINE = "(hikey-32|dragonboard-410c-32|dragonboard-820c-32|poplar|imx8mqevk)"
+
+DEPENDS = "wayland virtual/egl glib-2.0 libdrm"
+
+PROVIDES = " \
+    virtual/westeros-soc \
+    virtual/vendor-westeros-soc \
+    westeros-soc \
+    "
+RPROVIDES:${PN} = " \
+    virtual/westeros-soc \
+    virtual/vendor-westeros-soc \
+    westeros-soc \
+    "
+
+CFLAGS:append = " -I${STAGING_INCDIR}/libdrm"
+
+SECURITY_CFLAGS:remove = "-fpie"
+SECURITY_CFLAGS:remove = "-pie"
+
+DEBIAN_NOAUTONAME:${PN} = "1"
+DEBIAN_NOAUTONAME:${PN}-dbg = "1"
+DEBIAN_NOAUTONAME:${PN}-dev = "1"
+DEBIAN_NOAUTONAME:${PN}-staticdev = "1"
+
+inherit autotools pkgconfig
+
+COMPATIBLE_MACHINE = "${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '(.*)', 'null', d)}"
+
+SRC_URI += "file://set_and_get_resolution.patch"
+
+# incase if enabled in bb file, it should be removed for Rpi
+CFLAGS:remove = "${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', '-DWESTEROS_GL_NO_PLANES', '', d)}"
+CFLAGS:append = "${@bb.utils.contains('MACHINE_FEATURES', 'vc4graphics', ' -DDRM_NO_NATIVE_FENCE', '', d)}"
