@@ -1,6 +1,8 @@
 # bbappend for raspberryPi
 #
 
+require recipes-graphics/westeros/westeros.inc
+
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 #SRC_URI += "file://0001-REFPLTV-3098-App-slowness-issue-fix.patch"
 
