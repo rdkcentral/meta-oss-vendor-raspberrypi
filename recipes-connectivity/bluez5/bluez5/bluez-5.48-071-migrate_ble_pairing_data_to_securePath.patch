@@ -1,0 +1,13 @@
+Index: bluez-5.48/src/bluetooth.service.in
+===================================================================
+--- bluez-5.48.orig/src/bluetooth.service.in
++++ bluez-5.48/src/bluetooth.service.in
+@@ -11,6 +11,7 @@ BusName=org.bluez
+ ExecStartPre=/bin/mkdir -p /var/lib/bluetooth
+ ExecStartPre=/bin/mkdir -p /opt/lib/bluetooth
+ ExecStart=@libexecdir@/bluetoothd -d
++ExecStartPre=/bin/sh -c '/etc/bluetooth/bt_secure_path_setup.sh'
+ NotifyAccess=main
+ #WatchdogSec=10
+ Restart=always
+
