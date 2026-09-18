@@ -18,6 +18,7 @@ PSEUDO_IGNORE_PATHS .= ",${WORKDIR}/git"
 inherit autotools pkgconfig
 
 DEPENDS = "wayland westeros essos virtual/westeros-soc"
+EXTRA_OEMAKE:append = " STAGING_INCDIR=${STAGING_INCDIR}"
 
 #For sky
 CFLAGS += "${@bb.utils.contains('DISTRO_FEATURES', 'window_mode_1080p', " -DMODE_1080P", "", d)}"
